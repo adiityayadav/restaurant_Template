@@ -5,11 +5,11 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     display: 'flex',
     border: '1px dotted grey',
-    maxWidth: 520,
+    width: 520,
     margin: 5,
     [theme.breakpoints.down('md')]: {
       margin: 0,
-      maxWidth: 370,
+      width: 370,
     },
   },
   image: {
@@ -21,8 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   cardContent: {
-    display: 'flex',
-    flexDirection: 'column',
+    
     [theme.breakpoints.down('md')]: {
       maxWidth: 200,
       padding: 5,
@@ -35,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cardTitle: {
     display: 'flex',
-    alignContent: 'center',
     justifyContent: 'space-between',
     fontSize: 16,
     [theme.breakpoints.down('md')]: {
@@ -43,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   priceButton: {
+  
     backgroundColor: 'orange',
     fontSize: 12,
     [theme.breakpoints.down('sm')]: {
@@ -77,43 +76,34 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const Card4blk = () => {
-  const classes = useStyles();
-  return (
-    <div className={classes.cardContainer}>
-      <img
-        className={classes.image}
-        src="https://elanta.app/nazar/tastyc-demo/img/menu/3.jpg"
-        alt="Live from space album cover"
-      />
-      <Box className={classes.cardContent}>
-        <div className={classes.cardTitle}>
-          <Typography style={{ display:"flex", fontFamily: "'Playfair Display', serif" }} variant="h5">
-            Сasserole
-          </Typography>
-          <Button className={classes.priceButton} variant="contained">
-            $12
-          </Button>
-        </div>
-        <Divider className={classes.divider} />
-        <Box className={classes.tagButtonContainer}>
-          <Button className={classes.tagButton} variant="contained">
-            SEAFOOD
-          </Button>
-          <Button className={classes.tagButton} variant="contained">
-            FISH
-          </Button>
-          <Button className={classes.tagButton} variant="contained">
-            DISHES
-          </Button>
+const MenuCard = (props) => {
+    const classes = useStyles();
+    const { name, price, image, tags, description } = props;
+  
+    return (
+      <div className={classes.cardContainer}>
+        <img className={classes.image} src={image} alt={name} />
+        <Box className={classes.cardContent}>
+          <div className={classes.cardTitle}>
+            <Typography style={{ display:"flex",fontFamily: "'Playfair Display', serif" }} variant="subtitle1">
+              {name}
+            </Typography>
+            <Button className={classes.priceButton} variant="contained">
+              ${price}
+            </Button>
+          </div>
+          <Divider className={classes.divider} />
+          <Box className={classes.tagButtonContainer}>
+            {tags.map((tag) => (
+              <Button className={classes.tagButton} variant="contained" key={tag}>
+                {tag}
+              </Button>
+            ))}
+          </Box>
+          <div className={classes.cardDescription}>{description}</div>
         </Box>
-        <div className={classes.cardDescription}>
-          Consectetur adipisicing elit. Animi praesentium at veritatis cumque facere vero.
-        </div>
-      </Box>
-    </div>
-  );
-};
-
-export default Card4blk;
+      </div>
+    );
+  };
+  
+  export default MenuCard;

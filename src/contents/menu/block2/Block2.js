@@ -21,12 +21,14 @@ import { styled } from "@mui/styles";
 import { Container, Avatar, Box } from "@material-ui/core";
 import { color } from "@mui/system";
 import { useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 
 import VisibilitySensor from 'react-visibility-sensor';
 
 import CountUp from 'react-countup';
 import { Image } from "@mui/icons-material";
 import Card4blk from "./Card4blk";
+import MenuCard from "components/card/menu1card/MenuCard";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -138,6 +140,10 @@ export default function Block3() {
     //   setAward(newCount/50);
     // }
 
+    const menu = useSelector(state => state.menu);
+    console.log(menu);
+    const dispatch = useDispatch();
+
     return (
         <div className={classes.root}>
 
@@ -175,34 +181,14 @@ export default function Block3() {
 
                 </div>
             </div>
+            
             <Grid container style={{ margin: "3.2vw", display: "flex", alignItems: "center", justifyContent: 'center', textAlign: "center", }} >
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <Card4blk />
-                </Grid>
-
-
-            </Grid>
+            {menu.items.map((item) => (
+          <Grid item xs={12} sm={12} md={6} key={item.id}>
+            <MenuCard  key={item.id} name={item.name} price={item.price} image={item.image} tags={item.tags}  description={item.description}/>
+          </Grid>
+        ))}
+      </Grid>
             {/* <Card sx={{ display: 'flex', border: "1px dotted grey", maxWidth: 500 }}>
 
                 <img
